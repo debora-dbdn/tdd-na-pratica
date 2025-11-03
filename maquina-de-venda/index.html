@@ -15,7 +15,18 @@
     <script src="https://code.jquery.com/qunit/qunit-1.18.0.js"></script>
 
     <script>
-      // A sua solução será escrita aqui!
+      const cedulasDisponiveis = [100, 50, 20, 10, 5, 2, 1]
+      
+      function calcularTroco(precoDoProduto, valorPago) {
+        let troco = []
+        let valorDoTroco = valorPago - precoDoProduto
+        
+        if (valorDoTroco <= 0) {
+        return []
+        }
+
+        return troco
+      }
     </script>
 
     <script>
