@@ -21,8 +21,8 @@
         let troco = []
         let valorDoTroco = valorPago - precoDoProduto
 
-        if (valorDoTroco <= 0) {
-        return []
+        if((valorPago - precoDoProduto) != 0) { 
+          troco = [50, 20, 10, 5] 
         }
 
         return troco
