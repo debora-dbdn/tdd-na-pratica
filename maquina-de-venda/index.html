@@ -21,8 +21,13 @@
         let troco = []
         let valorDoTroco = valorPago - precoDoProduto
 
-        if((valorPago - precoDoProduto) != 0) { 
-          troco = [50, 20, 10, 5] 
+        if (valorDoTroco <= 0) return []
+
+        for (let cedula of cedulasDisponiveis) {
+        while (valorDoTroco >= cedula) {
+            troco.push(cedula)
+            valorDoTroco -= cedula
+        }
         }
 
         return troco
