@@ -17,21 +17,34 @@
     <script>
       const cedulasDisponiveis = [100, 50, 20, 10, 5, 2, 1]
       
-      function calcularTroco(precoDoProduto, valorPago) {
-        let troco = []
-        let valorDoTroco = valorPago - precoDoProduto
-
-        if (valorDoTroco <= 0) return []
-
-        for (let cedula of cedulasDisponiveis) {
-        while (valorDoTroco >= cedula) {
-            troco.push(cedula)
-            valorDoTroco -= cedula
+      function calcularTroco(preco, pago, estoque) {
+        const tentar = (cedulas, valor, disp) => {
+            const troco = []
+            for (const c of cedulas) {
+            while (valor >= c && disp[c] > 0) {
+                valor -= c
+                disp[c]--
+                troco.push(c)
+            }
+            }
+            return valor === 0 ? troco : null
         }
+
+        const valor = pago - preco
+        if (valor <= 0) return []
+        if (!estoque) return tentar(cedulasDisponiveis, valor, Object.fromEntries(cedulasDisponiveis.map(c => [c, Infinity])))
+
+        let result = tentar(cedulasDisponiveis, valor, {...estoque})
+        if (result) return result
+
+        for (let i = 1; i < cedulasDisponiveis.length; i++) {
+            result = tentar(cedulasDisponiveis.slice(i), valor, {...estoque})
+            if (result) return result
         }
 
-        return troco
-      }
+        throw new Error("Troco indisponível")
+        }
+
     </script>
 
     <script>
