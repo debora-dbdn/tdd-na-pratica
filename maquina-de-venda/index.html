@@ -58,6 +58,19 @@
         const trocoEsperado = [100, 50, 20, 10, 5, 2, 1]
         assert.deepEqual(trocoCalculado, trocoEsperado)
       })
+
+    test('troco 80 com estoque limitado deve retornar [20,20,20,20]', (assert) => {
+        const estoque = { 100: 1, 50: 0, 20: 5, 10: 10, 5: 10, 2: 10, 1: 10 }
+        const troco = calcularTroco(120, 200, estoque) 
+        assert.deepEqual(troco, [20, 20, 20, 20])
+    })
+
+    test('impossível dar troco exato deve lançar erro', (assert) => {
+        const estoque = { 2: 2, 1: 0 }
+        assert.throws(() => {
+        calcularTroco(97, 100, estoque) 
+        }, /Troco indisponível/)
+    })
     </script>
 
   </body>
